@@ -7,6 +7,11 @@
 
     using OAuth2Server.Models;
 
+    /// <summary>
+    /// This controller will handle token requests. The <see cref="RequireHttpsAttribute"/> is necessary as DotNetOpenAuth
+    /// will only process HTTPS requests.
+    /// </summary>
+    [RequireHttps]
     public class TokensController : Controller
     {
         // Create our authorization server using our own, custom IAuthorizationServerHost implementation
