@@ -1,0 +1,30 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title>@ViewBag.Title</title>
+    <link href="@Url.Content("~/Content/Site.css")" rel="stylesheet" type="text/css" />
+</head>
+<body>
+    <div class="page">
+        <div id="header">
+            <div id="title">
+                <h1>OAuth 2 server demo</h1>
+            </div>
+            <div id="menucontainer">
+                <ul id="menu">
+                    <li>@Html.ActionLink("Home", "Index", "Home")</li>
+                    <li>@Html.ActionLink("Client credentials", "ClientCredentialsGrant", "Home")</li>
+                    <li>@Html.ActionLink("Resource owner credentials", "ResourceOwnerCredentialsGrant", "Home")</li>
+                    <li>@Html.ActionLink("Refresh token", "RefreshToken", "Home")</li>
+                </ul>
+            </div>
+        </div>
+        <div id="main">
+            @RenderBody()
+        </div>
+        <div id="footer">
+            &copy; Erik Schierboom - 2013 <a href="https://github.com/ErikSchierboom/oauth2serveraspnetmvc" title="OAuth 2 server on GitHub">View on GitHub</a> 
+        </div>
+    </div>
+</body>
+</html>
