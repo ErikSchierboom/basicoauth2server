@@ -53,10 +53,12 @@
     <Reference Include="DotNetOpenAuth">
       <HintPath>..\packages\DotNetOpenAuth.Ultimate.4.2.2.13055\lib\net40-full\DotNetOpenAuth.dll</HintPath>
     </Reference>
+    <Reference Include="Microsoft.CSharp" />
     <Reference Include="Microsoft.Web.Mvc.FixedDisplayModes">
       <HintPath>..\packages\Microsoft.AspNet.Mvc.FixedDisplayModes.1.0.1\lib\net40\Microsoft.Web.Mvc.FixedDisplayModes.dll</HintPath>
     </Reference>
     <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="System.Net.Http, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.Net.Http.2.0.20710.0\lib\net40\System.Net.Http.dll</HintPath>
@@ -96,10 +98,13 @@
     </Compile>
     <Compile Include="Models\AuthorizationServerHost.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ViewModels\Home\ClientCredentialsGrantViewModel.cs" />
+    <Compile Include="ViewModels\Home\ResourceOwnerCredentialsGrantViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\RouteConfig.cs" />
     <Content Include="Content\Site.css" />
+    <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
     <None Include="Scripts\jquery-1.9.1.intellisense.js" />
     <Content Include="Scripts\jquery-1.9.1.js" />
@@ -119,7 +124,7 @@
     </Content>
     <Content Include="Views\Home\ClientCredentialsGrant.cshtml" />
     <Content Include="Views\Home\ResourceOwnerCredentialsGrant.cshtml" />
-    <Content Include="Views\Home\RefreshToken.cshtml" />
+    <Content Include="Views\Shared\AccessTokenResult.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
