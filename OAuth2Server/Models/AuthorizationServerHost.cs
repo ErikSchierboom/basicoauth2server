@@ -99,7 +99,7 @@
         public AccessTokenResult CreateAccessToken(IAccessTokenRequest accessTokenRequestMessage)
         {
             var accessToken = new AuthorizationServerAccessToken();
-            accessToken.Lifetime = TimeSpan.FromMinutes(2);          
+            accessToken.Lifetime = TimeSpan.FromHours(1);          
             accessToken.ResourceServerEncryptionKey = new RSACryptoServiceProvider();
             accessToken.ResourceServerEncryptionKey.ImportParameters(ResourceServerEncryptionPublicKey);
             accessToken.AccessTokenSigningKey = CreateRsaCryptoServiceProvider();
