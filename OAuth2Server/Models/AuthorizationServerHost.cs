@@ -99,10 +99,9 @@
         public AccessTokenResult CreateAccessToken(IAccessTokenRequest accessTokenRequestMessage)
         {
             var accessToken = new AuthorizationServerAccessToken();
-            accessToken.Lifetime = TimeSpan.FromHours(1);          
-            accessToken.ResourceServerEncryptionKey = new RSACryptoServiceProvider();
-            accessToken.ResourceServerEncryptionKey.ImportParameters(ResourceServerEncryptionPublicKey);
-            accessToken.AccessTokenSigningKey = CreateRsaCryptoServiceProvider();
+            accessToken.Lifetime = TimeSpan.FromHours(1);
+            accessToken.ResourceServerEncryptionKey = CreateRsaCryptoServiceProvider(ResourceServerEncryptionPublicKey);
+            accessToken.AccessTokenSigningKey = CreateRsaCryptoServiceProvider(AuthorizationServerSigningKey);
 
             return new AccessTokenResult(accessToken);
         }
@@ -232,11 +231,12 @@
         /// <summary>
         /// Creates the RSA crypto service provider.
         /// </summary>
+        /// <param name="parameters">The RSA parameters</param>
         /// <returns>The RSA crypto service provider.</returns>
-        private static RSACryptoServiceProvider CreateRsaCryptoServiceProvider()
+        private static RSACryptoServiceProvider CreateRsaCryptoServiceProvider(RSAParameters parameters)
         {
             var rsa = new RSACryptoServiceProvider();
-            rsa.ImportParameters(AuthorizationServerSigningKey);
+            rsa.ImportParameters(parameters);
             return rsa;
         }
     }
