@@ -65,7 +65,7 @@
         public ViewResult ClientCredentialsGrant()
         {
             // We will set-up correct default values to make it easier for the user to start testing
-            var model = new ClientCredentialsGrantViewModel { ClientId = "demo-identifier", ClientSecret = "demo-secret", Scope = "demo-scope-client" };
+            var model = new ClientCredentialsGrantViewModel { ClientId = "demo-client-identifier", ClientSecret = "demo-client-secret", Scope = "demo-client-scope" };
 
             return this.View(model);
         }
@@ -114,7 +114,7 @@
             // We will set-up correct default values to make it easier for the user to start testing
             var model = new ResourceOwnerCredentialsGrantViewModel
                             {
-                                Username = "demo-username", Password = "demo-password", ClientId = "demo-identifier", Scope = "demo-scope-user"
+                                Username = "demo-user-username", Password = "demo-user-password", ClientId = "demo-client-identifier", Scope = "demo-user-scope"
                             };
 
             return this.View(model);
@@ -141,7 +141,7 @@
                     var userScopes = OAuthUtilities.SplitScopes(model.Scope ?? string.Empty);
 
                     // Request a new user access token for the specified user and the specified scopes (http://tools.ietf.org/html/draft-ietf-oauth-v2-31#page-35)
-                    this.ViewBag.AccessToken = webServerClient.ExchangeUserCredentialForToken("demo-username", "demo-password", userScopes);
+                    this.ViewBag.AccessToken = webServerClient.ExchangeUserCredentialForToken(model.Username, model.Password, userScopes);
                 }
                 catch (Exception ex)
                 {

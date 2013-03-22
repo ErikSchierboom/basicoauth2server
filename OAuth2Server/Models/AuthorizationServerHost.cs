@@ -3,7 +3,6 @@
     using System;
     using System.Collections.Generic;
     using System.Security.Cryptography;
-    using System.Web;
 
     using DotNetOpenAuth.Messaging.Bindings;
     using DotNetOpenAuth.OAuth2;
@@ -121,9 +120,9 @@
             // We use a hard-code client identifier and secret. In real-life situations it is quite likely that you
             // will store your clients in a persistent store. Retrieving the client would then mean retrieving it 
             // from the store
-            if (clientIdentifier == "demo-identifier")
+            if (clientIdentifier == "demo-client-identifier")
             {
-                return new ClientDescription("demo-secret", null, ClientType.Public);    
+                return new ClientDescription("demo-client-secret", null, ClientType.Public);    
             }
 
             // If there is no client with the specified identifier, throw an ArgumentException. Note: you should
@@ -175,7 +174,7 @@
         {
             // We use a fixed username and password to determine if the username/password combination is correct. Of course, a real-life application
             // would probably use a persistent store and check if the username and password combination matches on of the stored users
-            var userCredentialsAreCorrect = userName == "demo-username" && password == "demo-password";
+            var userCredentialsAreCorrect = userName == "demo-user-username" && password == "demo-user-password";
 
             // The token request is approved when the user credentials are correct and the user is authorized for the requested scopes
             var isApproved = userCredentialsAreCorrect && UserIsAuthorizedForRequestedScopes(userName, accessRequest.Scope);
@@ -198,7 +197,7 @@
             // We define the scopes the client is authorized for. Once again, you would expect these scopes to be retrieved from
             // a persistent store. Note: the scopes a client is authorized for can very well differ between clients
             var scopesClientIsAuthorizedFor = new HashSet<string>(OAuthUtilities.ScopeStringComparer);
-            scopesClientIsAuthorizedFor.Add("demo-scope-client");
+            scopesClientIsAuthorizedFor.Add("demo-client-scope");
 
             // Check if the scopes that are being requested are a subset of the scopes the user is authorized for.
             // If not, that means that the user has requested at least one scope it is not authorized for
@@ -222,7 +221,7 @@
             // a persistent store. Note: the scopes a user is authorized for can very well differ between users. Think of an
             // admin user being authorized for more scopes than a regular user
             var scopesUserIsAuthorizedFor = new HashSet<string>(OAuthUtilities.ScopeStringComparer);
-            scopesUserIsAuthorizedFor.Add("demo-scope-user");
+            scopesUserIsAuthorizedFor.Add("demo-user-scope");
 
             // Check if the scopes that are being requested are a subset of the scopes the user is authorized for.
             // If not, that means that the user has requested at least one scope it is not authorized for
