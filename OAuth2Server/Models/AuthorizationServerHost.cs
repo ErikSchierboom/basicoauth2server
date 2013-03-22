@@ -3,6 +3,7 @@
     using System;
     using System.Collections.Generic;
     using System.Security.Cryptography;
+    using System.Web;
 
     using DotNetOpenAuth.Messaging.Bindings;
     using DotNetOpenAuth.OAuth2;
@@ -47,26 +48,15 @@
         /// </summary>
         private readonly StandardProviderApplicationStore standardProviderApplicationStore;
 
-        /// <summary>
-        /// The encryption key used by the resource server to do internal encryption.
-        /// </summary>
-        private readonly RSACryptoServiceProvider resourceServerEncryptionKey;
-
-        /// <summary>
-        /// The key used to sign access tokens with.
-        /// </summary>
-        private readonly RSACryptoServiceProvider accessTokenSigningKey;
-
         public AuthorizationServerHost()
         {
             // Use a default in-memory provider application store. This is a class that is ideal for use in test
             // applications as it requires no further setup and can be used as both the crypto key- and nonce store.
             // In real-life situations you would of course implement your own crypto key- and nonce store, which will
-            // most likely use some kind of persistent storage to store keys and nonces.
+            // most likely use some kind of persistent storage to store keys and nonces. As the nonces are kept in memory
+            // only, it is not possible to refresh tokens as the issued tokens will have been removed from memory the moment
+            // the refresh token request is being processed
             this.standardProviderApplicationStore = new StandardProviderApplicationStore();
-
-            this.resourceServerEncryptionKey = CreateRsaCryptoServiceProvider(ResourceServerEncryptionPublicKey);
-            this.accessTokenSigningKey = CreateRsaCryptoServiceProvider(AuthorizationServerSigningKey);
         }
 
         /// <summary>
@@ -113,8 +103,8 @@
         {
             var accessToken = new AuthorizationServerAccessToken();
             accessToken.Lifetime = TimeSpan.FromHours(1);
-            accessToken.ResourceServerEncryptionKey = this.resourceServerEncryptionKey;
-            accessToken.AccessTokenSigningKey = this.accessTokenSigningKey;
+            accessToken.ResourceServerEncryptionKey = CreateRsaCryptoServiceProvider(ResourceServerEncryptionPublicKey);
+            accessToken.AccessTokenSigningKey = CreateRsaCryptoServiceProvider(AuthorizationServerSigningKey);
 
             return new AccessTokenResult(accessToken);
         }

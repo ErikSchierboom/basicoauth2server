@@ -58,11 +58,6 @@
             Console.WriteLine("Expiration time: {0}", userAccessToken.AccessTokenExpirationUtc);
             Console.WriteLine("Scope: {0}", OAuthUtilities.JoinScopes(userAccessToken.Scope));
             
-            Console.WriteLine("\n[REFRESHING RETRIEVED USER ACCESS TOKEN]");
-            
-            // Refresh the authorization
-            userAgentClient.RefreshAuthorization(userAccessToken);
-
             Console.WriteLine("\nPress any key to exit...");
             Console.ReadKey();
         }
