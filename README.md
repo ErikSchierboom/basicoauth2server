@@ -5,7 +5,7 @@ Creating an OAuth 2.0 server is hard. Luckily, the [DotNetOpenAuth](http://www.d
 
 ## Usage
  1. Clone this project to your development machine
- 2. Open the BasicOAuth2ServerDemo.sln solution file
+ 2. Open the BasicOAuth2Server.sln solution file
  3. Build the solution
  4. Run the OAuth2Server website
  5. Use the website's built in test client or run the OAuth2Client application
