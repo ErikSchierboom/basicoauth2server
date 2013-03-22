@@ -47,6 +47,16 @@
         /// </summary>
         private readonly StandardProviderApplicationStore standardProviderApplicationStore;
 
+        /// <summary>
+        /// The encryption key used by the resource server to do internal encryption.
+        /// </summary>
+        private readonly RSACryptoServiceProvider resourceServerEncryptionKey;
+
+        /// <summary>
+        /// The key used to sign access tokens with.
+        /// </summary>
+        private readonly RSACryptoServiceProvider accessTokenSigningKey;
+
         public AuthorizationServerHost()
         {
             // Use a default in-memory provider application store. This is a class that is ideal for use in test
@@ -54,6 +64,9 @@
             // In real-life situations you would of course implement your own crypto key- and nonce store, which will
             // most likely use some kind of persistent storage to store keys and nonces.
             this.standardProviderApplicationStore = new StandardProviderApplicationStore();
+
+            this.resourceServerEncryptionKey = CreateRsaCryptoServiceProvider(ResourceServerEncryptionPublicKey);
+            this.accessTokenSigningKey = CreateRsaCryptoServiceProvider(AuthorizationServerSigningKey);
         }
 
         /// <summary>
@@ -100,8 +113,8 @@
         {
             var accessToken = new AuthorizationServerAccessToken();
             accessToken.Lifetime = TimeSpan.FromHours(1);
-            accessToken.ResourceServerEncryptionKey = CreateRsaCryptoServiceProvider(ResourceServerEncryptionPublicKey);
-            accessToken.AccessTokenSigningKey = CreateRsaCryptoServiceProvider(AuthorizationServerSigningKey);
+            accessToken.ResourceServerEncryptionKey = this.resourceServerEncryptionKey;
+            accessToken.AccessTokenSigningKey = this.accessTokenSigningKey;
 
             return new AccessTokenResult(accessToken);
         }

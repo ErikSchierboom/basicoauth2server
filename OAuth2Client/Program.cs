@@ -5,6 +5,9 @@
 
     using DotNetOpenAuth.OAuth2;
 
+    /// <summary>
+    /// This console application shows how to connect to the OAuth 2 demo server.
+    /// </summary>
     internal class Program
     {
         private static void Main()
@@ -54,6 +57,11 @@
             Console.WriteLine("Refresh token: {0}", userAccessToken.RefreshToken);
             Console.WriteLine("Expiration time: {0}", userAccessToken.AccessTokenExpirationUtc);
             Console.WriteLine("Scope: {0}", OAuthUtilities.JoinScopes(userAccessToken.Scope));
+            
+            Console.WriteLine("\n[REFRESHING RETRIEVED USER ACCESS TOKEN]");
+            
+            // Refresh the authorization
+            userAgentClient.RefreshAuthorization(userAccessToken);
 
             Console.WriteLine("\nPress any key to exit...");
             Console.ReadKey();
