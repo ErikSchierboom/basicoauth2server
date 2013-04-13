@@ -9,3 +9,9 @@ Creating an OAuth 2.0 server is hard. Luckily, the [DotNetOpenAuth](http://www.d
  3. Build the solution
  4. Run the OAuth2Server website
  5. Use the website's built in test client or run the OAuth2Client application
+
+## Notes
+As the backing store for the nonces and keys is an in-memory data structure, that means that it is not possible to refer to a previously issued token. This means that this demo is *only* about how to return client and user access tokens, you can't actually use them later (as the server would not recognize them). If you want a more advanced example that stores the nonces and keys persistently, check out my [basicoath2server.persistent project](https://github.com/ErikSchierboom/basicoauth2server.persistent).
+
+## License
+[Apache License 2.0](License.MD)
