@@ -154,7 +154,10 @@
         /// </remarks>
         public bool IsAuthorizationValid(IAuthorizationDescription authorization)
         {
-            // We check once again if the user is authorized for the specified scopes
+            // This method will never be called as we store our tokens in-memory so any attempt to
+            // refresh a token will fail before this method is called as the server will not recognize
+            // the token as being one it issued. For demo purposes, we show what the implementation
+            // might look like
             return UserIsAuthorizedForRequestedScopes(authorization.User, authorization.Scope);
         }
 
